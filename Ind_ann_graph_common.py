@@ -49,17 +49,18 @@ def negcum(rank_vec):
 
 data_dir = 'data/'
 
-with open(data_dir+'drugs2tars_stitch.dict','r') as f:
+with open(data_dir+'drugs2ind_doid.dict','r') as f:
 	drugs_targets = json.load(f)
 
+data = pd.read_csv(data_dir+'embeddings_WalkingRDFOWL_has_indication_free.txt', header = None, skiprows = 1, sep = ' ')
 
-data = pd.read_csv(data_dir+'embeddings_WalkingRDFOWL_has_target_free.txt', header = None, skiprows = 1, sep = ' ')
 embds_data = data.values
 embds_dict = dict(zip(embds_data[:,0],embds_data[:,1:]))
 
 data = pd.read_csv(data_dir+'mapping_WalkingRDFOWL.txt', header = None, sep = '\t')
 data = data.values
 mapping_dict = dict(zip(data[:,1],data[:,0]))
+
 
 
 drugs_embeddings = {}
@@ -69,7 +70,7 @@ for item in embds_dict:
 	ent = mapping_dict[item].split('/')[-1]
 	if ent.startswith('CID'):
 		drugs_embeddings[ent] = np.array(embds_dict[item], dtype = 'float32')
-	elif ent.isdigit():
+	elif ent.startswith('DOID_'):
 		targets_embeddings[ent] = np.array(embds_dict[item], dtype = 'float32')
 	else:
 		continue
@@ -77,8 +78,8 @@ for item in embds_dict:
 
 positive_drug_tar = {}
 
-common_drugs = np.genfromtxt('common_drugs.txt', dtype = 'str')
-common_genes = np.genfromtxt('common_genes.txt', dtype = 'str')
+common_drugs = np.genfromtxt('common_drugs_indications.txt', dtype = 'str')
+common_genes = np.genfromtxt('common_diseases_indications.txt', dtype = 'str')
 
 for drug in drugs_targets:
 	tars = drugs_targets[drug]
@@ -89,7 +90,7 @@ for drug in drugs_targets:
 			positive_drug_tar[(drug,tar)] = np.concatenate((drug_embds,tar_embds), axis=0)
 
 
-allpairs = list(itertools.product(set(drugs_embeddings.keys()),set(targets_embeddings.keys())))
+allpairs = list(itertools.product(set(common_drugs),set(common_genes)))
 
 positive_pairs = positive_drug_tar.keys()
 
@@ -107,12 +108,10 @@ for (drug,tar) in negative_pairs:
 
 
 
-positives = np.array(positive_drug_tar.keys())
-negatives = np.array(negative_drug_tar.keys())
+train_pairs = np.genfromtxt('common_indications_pair_train.txt', dtype = 'str')
+test_pairs = np.genfromtxt('common_indications_pair_test.txt', dtype = 'str')
 
-alldata = np.concatenate((positives, negatives))
-
-train_pairs, test_pairs = train_test_split(alldata, test_size=0.2, random_state=42)
+# pdb.set_trace()
 
 train_data = []
 train_labels = []
@@ -174,7 +173,11 @@ recall_100 = {}
 recall_10 = {}
 ranked_tars10 = {}
 ranked_tars100 = {}
+allranked = {}
 
+# pdb.set_trace()
+
+ff = open('indications_ranked_graph.txt','w')
 
 for drug in test_pos:
 	tars = drugs_targets[drug]
@@ -196,9 +199,10 @@ for drug in test_pos:
 			test_emds = []
 			to_test = list(set(common_genes) - set(train_tar))
 			for tar in to_test:
-				taremds = targets_embeddings[tar]
-				pair_embds = np.concatenate((drugembds[0], taremds), axis=0)
-				test_emds.append(pair_embds)
+				if tar in targets_embeddings:
+					taremds = targets_embeddings[tar]
+					pair_embds = np.concatenate((drugembds[0], taremds), axis=0)
+					test_emds.append(pair_embds)
 
 			# pdb.set_trace()
 			test_emds = np.array(test_emds, dtype='float32')
@@ -209,13 +213,16 @@ for drug in test_pos:
 			label_vec = [0]*len(sort_tars)
 			test_ranks = []
 			ranked_tars = []
+			ff.write(drug+':')
 			for ind in s1:
 				if ind in sort_tars:
 					idx = sort_tars.index(ind)
 					label_vec[idx] = 1
 					test_ranks.append(idx)
 					ranked_tars.append(ind)
+					ff.write(str(ind)+' ranked at '+str(idx)+', ')
 
+			ff.write('\n')
 			label_mat[drug] = label_vec
 
 			if len(test_ranks) > 0:
@@ -225,7 +232,9 @@ for drug in test_pos:
 				recall_10[drug] = len(np.where(test_r <= 10)[0])/float(len(test_r))
 				ranked_tars10[drug] = ranked_tars[np.where(test_r <= 10)[0]].tolist()
 				ranked_tars100[drug] = ranked_tars[np.where(test_r <= 10)[0]].tolist()
+				allranked[drug] = ranked_tars.tolist()
 
+ff.close()
 
 #get max label vec dimension to compare with
 len_vec = []
@@ -253,15 +262,16 @@ tpsum = np.sum(array_tp, axis = 0)
 fpsum = np.sum(array_fp, axis = 0)
 tpr_r = tpsum/max(tpsum)
 fpr_r = fpsum/max(fpsum)
+# pdb.set_trace()
+
 
 auc_data2 = np.c_[fpr_r, tpr_r]
 
 print('Number of drugs: {}'.format(len(label_mat)))
-print('Number of genes: {}'.format(len(common_genes)))
+print('Number of diseases: {}'.format(len(common_genes)))
 print('auc:  {}'.format(auc(fpr_r, tpr_r)))
 print('average recall@100:{}'.format(np.mean(recall_100.values())))
 print('average recall@10:{}'.format(np.mean(recall_10.values())))	
-# np.savetxt('DTI_graph_common.txt', auc_data2, fmt = "%s")
 
 
 pdb.set_trace()

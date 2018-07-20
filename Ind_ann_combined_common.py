@@ -24,14 +24,6 @@ session_conf = tf.ConfigProto(intra_op_parallelism_threads=1, inter_op_paralleli
 random.seed(12345)
 
 
-import os
-os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"   
-os.environ["CUDA_VISIBLE_DEVICES"]=""   #use CPU
-
-from tensorflow.python.client import device_lib
-print device_lib.list_local_devices()
-
-
 
 def negcum(rank_vec):
 	rank_vec_cum = []
@@ -47,38 +39,43 @@ def negcum(rank_vec):
 	return rank_vec_cum
 
 
+
+
 data_dir = 'data/'
 
-with open(data_dir+'drugs2tars_stitch.dict','r') as f:
+with open(data_dir+'drugs2ind_doid.dict','r') as f:
 	drugs_targets = json.load(f)
 
 
-data = pd.read_csv(data_dir+'embeddings_WalkingRDFOWL_has_target_free.txt', header = None, skiprows = 1, sep = ' ')
+data = pd.read_csv(data_dir+'drugs_embeddings_combined_has_indication.txt', header = None, sep = ' ')
 embds_data = data.values
-embds_dict = dict(zip(embds_data[:,0],embds_data[:,1:]))
+drugs_dict = dict(zip(embds_data[:,0],embds_data[:,1:]))
 
-data = pd.read_csv(data_dir+'mapping_WalkingRDFOWL.txt', header = None, sep = '\t')
-data = data.values
-mapping_dict = dict(zip(data[:,1],data[:,0]))
 
+data = pd.read_csv(data_dir+'diseases_embeddings_combined_has_indication.txt', header = None, sep = ' ')
+embds_data = data.values
+tar_dict = dict(zip(embds_data[:,0],embds_data[:,1:]))
 
 drugs_embeddings = {}
 targets_embeddings = {}
 
-for item in embds_dict:
-	ent = mapping_dict[item].split('/')[-1]
+
+for item in drugs_dict:	
+	ent = item.split('/')[-1].strip('>')
 	if ent.startswith('CID'):
-		drugs_embeddings[ent] = np.array(embds_dict[item], dtype = 'float32')
-	elif ent.isdigit():
-		targets_embeddings[ent] = np.array(embds_dict[item], dtype = 'float32')
-	else:
-		continue
+		drugs_embeddings[ent] = np.array(drugs_dict[item], dtype = 'float32')
+
+for item in tar_dict:
+	ent = item.split('/')[-1].strip('>')
+	if ent.startswith('DOID_'):
+		targets_embeddings[ent] = np.array(tar_dict[item], dtype = 'float32')
 
 
 positive_drug_tar = {}
 
-common_drugs = np.genfromtxt('common_drugs.txt', dtype = 'str')
-common_genes = np.genfromtxt('common_genes.txt', dtype = 'str')
+common_drugs = np.genfromtxt('common_drugs_indications.txt', dtype = 'str')
+common_genes = np.genfromtxt('common_diseases_indications.txt', dtype = 'str')
+
 
 for drug in drugs_targets:
 	tars = drugs_targets[drug]
@@ -89,10 +86,9 @@ for drug in drugs_targets:
 			positive_drug_tar[(drug,tar)] = np.concatenate((drug_embds,tar_embds), axis=0)
 
 
-allpairs = list(itertools.product(set(drugs_embeddings.keys()),set(targets_embeddings.keys())))
+allpairs = list(itertools.product(set(common_drugs),set(common_genes)))
 
 positive_pairs = positive_drug_tar.keys()
-
 negative_pairs = set(allpairs) - set(positive_pairs)
 negative_pairs = random.sample(negative_pairs, len(positive_pairs))
 
@@ -106,13 +102,10 @@ for (drug,tar) in negative_pairs:
 		negative_drug_tar[(drug,tar)] = np.concatenate((drug_embds,tar_embds), axis=0)
 
 
+train_pairs = np.genfromtxt('common_indications_pair_train.txt', dtype = 'str')
+test_pairs = np.genfromtxt('common_indications_pair_test.txt', dtype = 'str')
 
-positives = np.array(positive_drug_tar.keys())
-negatives = np.array(negative_drug_tar.keys())
-
-alldata = np.concatenate((positives, negatives))
-
-train_pairs, test_pairs = train_test_split(alldata, test_size=0.2, random_state=42)
+# pdb.set_trace()
 
 train_data = []
 train_labels = []
@@ -127,9 +120,10 @@ for item in train_pairs:
 		train_data.append(positive_drug_tar[pair])
 		train_labels.append(1)
 		train_pos.add(item[0])
-	else:
+	elif pair in negative_drug_tar:
 		train_data.append(negative_drug_tar[pair])
 		train_labels.append(0)
+
 
 for item in test_pairs:
 	pair = (item[0],item[1])
@@ -137,16 +131,15 @@ for item in test_pairs:
 		test_data.append(positive_drug_tar[pair])
 		test_labels.append(1)
 		test_pos.add(item[0])
-	else:
+	elif pair in negative_drug_tar:
 		test_data.append(negative_drug_tar[pair])
 		test_labels.append(0)
 
-
 train_data = np.array(train_data)
 test_data = np.array(test_data)
+# pdb.set_trace()
 tr_labels = keras.utils.to_categorical(train_labels, num_classes=None)
 ts_labels = keras.utils.to_categorical(test_labels, num_classes=None)
-
 
 
 tf.set_random_seed(33)
@@ -174,7 +167,9 @@ recall_100 = {}
 recall_10 = {}
 ranked_tars10 = {}
 ranked_tars100 = {}
+allranked = {}
 
+ff = open('indications_ranked_multimodalII.txt','w')
 
 for drug in test_pos:
 	tars = drugs_targets[drug]
@@ -200,7 +195,6 @@ for drug in test_pos:
 				pair_embds = np.concatenate((drugembds[0], taremds), axis=0)
 				test_emds.append(pair_embds)
 
-			# pdb.set_trace()
 			test_emds = np.array(test_emds, dtype='float32')
 			y_pred = model.predict_proba(test_emds)[:,1]
 			sorted_idx = np.argsort(y_pred)[::-1]
@@ -209,23 +203,29 @@ for drug in test_pos:
 			label_vec = [0]*len(sort_tars)
 			test_ranks = []
 			ranked_tars = []
+
+			ff.write(drug+':')
 			for ind in s1:
 				if ind in sort_tars:
 					idx = sort_tars.index(ind)
 					label_vec[idx] = 1
 					test_ranks.append(idx)
 					ranked_tars.append(ind)
+					ff.write(str(ind)+' ranked at '+str(idx)+', ')
+			ff.write('\n')
 
 			label_mat[drug] = label_vec
 
+			test_r = np.array(test_ranks,dtype='int32')
 			if len(test_ranks) > 0:
-				test_r = np.array(test_ranks,dtype='int32')
 				ranked_tars = np.array(ranked_tars)
 				recall_100[drug] = len(np.where(test_r <= 100)[0])/float(len(test_r))
 				recall_10[drug] = len(np.where(test_r <= 10)[0])/float(len(test_r))
 				ranked_tars10[drug] = ranked_tars[np.where(test_r <= 10)[0]].tolist()
 				ranked_tars100[drug] = ranked_tars[np.where(test_r <= 10)[0]].tolist()
+				allranked[drug] = ranked_tars.tolist()
 
+ff.close()
 
 #get max label vec dimension to compare with
 len_vec = []
@@ -257,12 +257,8 @@ fpr_r = fpsum/max(fpsum)
 auc_data2 = np.c_[fpr_r, tpr_r]
 
 print('Number of drugs: {}'.format(len(label_mat)))
-print('Number of genes: {}'.format(len(common_genes)))
+print('Number of targets: {}'.format(len(common_genes)))
 print('auc:  {}'.format(auc(fpr_r, tpr_r)))
 print('average recall@100:{}'.format(np.mean(recall_100.values())))
 print('average recall@10:{}'.format(np.mean(recall_10.values())))	
-# np.savetxt('DTI_graph_common.txt', auc_data2, fmt = "%s")
-
-
 pdb.set_trace()
-
