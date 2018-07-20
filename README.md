@@ -32,8 +32,15 @@ python word2vec_gensim.py
 ~~~~
 python normalize_text.py
 ~~~~
+6. Use the the generated corpus from step 5 with Word2Vec to create independent Pubmed abstracts embeddings. 
 
-6. Run `Ind_ann_graph_common.py` and other scripts to train the Artificaial Neural Networks with different embeddings from the knowledge graph and PubMed abstracts available in the data folder.
+7. Combine the generated corpus from step 5 with the knowledge graph corpus similar to the following and run Word2Vec on the combined corpus.
+
+~~~~
+cat ../data/corpus_WalkingRDFOWL_has_indication_free.txt ../data/medline_abstracts_mapped_drugsrepo.txt
+~~~~
+
+8. Run `Ind_ann_graph_common.py` and other scripts to train the Artificaial Neural Networks with different embeddings from the knowledge graph and PubMed abstracts available in the data folder.
 
 We make all drug indications predictions available as `predicted_indications.tsv` in the data folder. The first column is the drug ID and drug name, indications disease ontology ID and name, and the prediction score. All mapping data used to normalize Literature information to knowledge graph used in this project is available as python dictionary in the data folder. All drug indications `drugs2ind_doid.dict` and drug targets `drugs2tars_stitch` evaluations are available as well.
 The drug indications is from [SIDER](http://sideeffects.embl.de/) database. The drug target is from [STITCH](http://stitch.embl.de/) database. Chemicals alias from `STITCH` was used to convert drugs mentions in text to `STITCH` ID available in 'chemical_map.dict'.
