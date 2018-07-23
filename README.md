@@ -1,12 +1,26 @@
 # multimodal drugs embeddings
 
+Here, we developed a novel method that combines
+  information in literature and structured databases, and applies
+  feature learning to generate vector space embeddings. We apply our
+  method to the identification of drug targets and indications for
+  known drugs based on heterogeneous information about drugs, target
+  proteins, and diseases.  We demonstrate that our method is able to
+  combine complementary information from both structured databases and
+  from literature.
 
 Below are the steps for the drugs multimodal repurposing pipleine
 
+## Requirements
+* python 2.7.6
+* numpy 
+* [keras](https://keras.io/)
+* [boost libraries] (https://www.boost.org/) for running multithreaded implementations of randomwalk.
 
-## The knowledge graph
 
-1. Build the graph as described in  [link](https://academic.oup.com/bioinformatics/article/3760100/Neuro-symbolic-representation-learning-on)
+## Running
+
+1. Build the graph as described in [link](https://academic.oup.com/bioinformatics/article/3760100/Neuro-symbolic-representation-learning-on)
 
 2. The output graph is in the data folder in this repository
 
@@ -26,24 +40,43 @@ Python remove_relation_links.py
 python word2vec_gensim.py
 ~~~~
 
-## The PubMed abstracts
-
-5. Normalize the knowledge graph entities with the PubMed abstracts corpus by running
+6. Normalize the knowledge graph entities with the PubMed abstracts corpus by running
 ~~~~
 python normalize_text.py
 ~~~~
-6. Use the the generated corpus from step 5 with Word2Vec to create independent Pubmed abstracts embeddings. 
+7. Use the the generated corpus from step 5 with Word2Vec to create independent Pubmed abstracts embeddings. 
 
-7. Combine the generated corpus from step 5 with the knowledge graph corpus similar to the following and run Word2Vec on the combined corpus.
+8. Combine the generated corpus from step 5 with the knowledge graph corpus similar to the following and run Word2Vec on the combined corpus.
 
 ~~~~
-cat ../data/corpus_WalkingRDFOWL_has_indication_free.txt ../data/medline_abstracts_mapped_drugsrepo.txt
+cat ../data/corpus_WalkingRDFOWL_has_indication_free.txt ../data/medline_abstracts_mapped_drugsrepo.txt > ../data/combined_corpus.txt
 ~~~~
 
-8. Run `Ind_ann_graph_common.py` and other scripts to train the Artificaial Neural Networks with different embeddings from the knowledge graph and PubMed abstracts available in the data folder.
+9. Run `Ind_ann_graph_common.py` and other scripts to train the Artificaial Neural Networks with different embeddings from the knowledge graph and PubMed abstracts available in the data folder.
 
-We make all drug indications predictions available as `predicted_indications.tsv` in the data folder. The first column is the drug ID and drug name, indications disease ontology ID and name, and the prediction score. All mapping data used to normalize Literature information to knowledge graph used in this project is available as python dictionary in the data folder. All drug indications `drugs2ind_doid.dict` and drug targets `drugs2tars_stitch` evaluations are available as well.
+## Data
+We make all drug indications predictions available as `predicted_indications.tsv` in the data folder. The first column is the drug ID and drug name, indications disease ontology ID and name, and the prediction score. All generated embeddings and mapping data used to normalize Literature information to knowledge graph used in this project is available as python dictionary in the data folder. All drug indications `drugs2ind_doid.dict` and drug targets `drugs2tars_stitch` evaluations are available as well.
 The drug indications is from [SIDER](http://sideeffects.embl.de/) database. The drug target is from [STITCH](http://stitch.embl.de/) database. Chemicals alias from `STITCH` was used to convert drugs mentions in text to `STITCH` ID available in 'chemical_map.dict'.
 
-[Disease ontology](http://www.obofoundry.org/ontology/doid.html) was used to extract `MESH` to `DOID` to mapping `mesh2doid.dict' and `OMIM` to `DOID`.
+[Disease ontology](http://www.obofoundry.org/ontology/doid.html) was used to extract `MESH` to `DOID` to mapping `mesh2doid.dict` and `OMIM` to `DOID`.
 The PubMed abstarcts used in this project was downloaded from [Pubtator](ftp://ftp.ncbi.nlm.nih.gov/pub/lu/PubTator/).
+
+## Sample results
+The table below shows few examples of our method is able to combine complemnetary information betwene the knowledge graph and the literature information and result in improved predictions ranks for drugs indications and targets
+
+
++-----------------+-------------+-----------------+--------------+----------------+
+| Drug 	          | Indication  | Knowledge graph | Multimodal I | Multimodal II  |
++=================+=============+=================+==============+================+
+|                 |             |                 |              |                |
++-----------------+-------------+-----------------+--------------+----------------+
+|                 |             |                 |              |                |
++-----------------+-------------+-----------------+--------------+----------------+
+|                 |             |                 |              |                |
++-----------------+-------------+-----------------+--------------+----------------+
+|                 |             |                 |              |                |
++-----------------+-------------+-----------------+--------------+----------------+ 
+
+## citation 
+
+
