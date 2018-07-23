@@ -15,7 +15,7 @@ Below are the steps for the drugs multimodal repurposing pipleine
 * python 2.7.6
 * numpy 
 * [keras](https://keras.io/)
-* [boost libraries] (https://www.boost.org/) for running multithreaded implementations of randomwalk.
+* [boost libraries](https://www.boost.org/) for running multithreaded implementations of randomwalk.
 
 
 ## Running
@@ -64,7 +64,6 @@ The PubMed abstarcts used in this project was downloaded from [Pubtator](ftp://f
 ## Sample results
 The table below shows few examples of our method is able to combine complemnetary information betwene the knowledge graph and the literature information and result in improved predictions ranks for drugs indications and targets
 
-
 +-----------------+-------------+-----------------+--------------+----------------+
 | Drug 	          | Indication  | Knowledge graph | Multimodal I | Multimodal II  |
 +=================+=============+=================+==============+================+
@@ -77,6 +76,6 @@ The table below shows few examples of our method is able to combine complemnetar
 |                 |             |                 |              |                |
 +-----------------+-------------+-----------------+--------------+----------------+ 
 
-## citation 
+## Citation 
 
 
