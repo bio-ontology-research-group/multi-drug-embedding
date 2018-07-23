@@ -27,7 +27,7 @@ Below are the steps for the drugs multimodal repurposing pipleine
 3. Before generating the corpus, remove the `has-target` edges for (Drug target interactions) prediction, and `has-indication` edges for Drug indications prediction.
 
 ~~~~
-Python remove_relation_links.py
+python remove_relation_links.py
 ~~~~
 4. Generate the knowledge graph corpus from the edgelist after removing edges, run
 
@@ -64,17 +64,12 @@ The PubMed abstarcts used in this project was downloaded from [Pubtator](ftp://f
 ## Sample results
 The table below shows few examples of our method is able to combine complemnetary information betwene the knowledge graph and the literature information and result in improved predictions ranks for drugs indications and targets
 
-+-----------------+-------------+-----------------+--------------+----------------+
 | Drug 	          | Indication  | Knowledge graph | Multimodal I | Multimodal II  |
-+=================+=============+=================+==============+================+
+| --------------- | ----------- |:---------------:|:------------:|:--------------:|
 |                 |             |                 |              |                |
-+-----------------+-------------+-----------------+--------------+----------------+
 |                 |             |                 |              |                |
-+-----------------+-------------+-----------------+--------------+----------------+
 |                 |             |                 |              |                |
-+-----------------+-------------+-----------------+--------------+----------------+
 |                 |             |                 |              |                |
-+-----------------+-------------+-----------------+--------------+----------------+ 
 
 ## Citation 
 
