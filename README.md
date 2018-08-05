@@ -55,21 +55,17 @@ cat ../data/corpus_WalkingRDFOWL_has_indication_free.txt ../data/medline_abstrac
 9. Run `Ind_ann_graph_common.py` and other scripts to train the Artificaial Neural Networks with different embeddings from the knowledge graph and PubMed abstracts available in the data folder.
 
 ## Data
-We make all drug indications predictions available as `predicted_indications.tsv` in the data folder. The first column is the drug ID and drug name, indications disease ontology ID and name, and the prediction score. All generated embeddings and mapping data used to normalize Literature information to knowledge graph used in this project is available as python dictionary in the data folder. All drug indications `drugs2ind_doid.dict` and drug targets `drugs2tars_stitch` evaluations are available as well.
-The drug indications is from [SIDER](http://sideeffects.embl.de/) database. The drug target is from [STITCH](http://stitch.embl.de/) database. Chemicals alias from `STITCH` was used to convert drugs mentions in text to `STITCH` ID available in 'chemical_map.dict'.
+We make drug indications predictions for approved drugs from SIDER available `predicted_indications_approved_processed.tsv` in the data folder. The first column is the drug ID and drug name, indications disease ontology ID and name, and the prediction score. All generated embeddings and mapping data used to normalize Literature information to knowledge graph used in this project is available as python dictionary in the data folder. All drug indications `drugs2ind_doid.dict` and drug targets `drugs2tars_stitch` evaluations are available as well.
+The drug indications is from [SIDER](http://sideeffects.embl.de/) database. The drug target is from [STITCH](http://stitch.embl.de/) database. Chemicals alias from `STITCH` was used to convert drugs mentions in text to `STITCH` ID available in `chemical_map.dict`.
 
 [Disease ontology](http://www.obofoundry.org/ontology/doid.html) was used to extract `MESH` to `DOID` to mapping `mesh2doid.dict` and `OMIM` to `DOID`.
 The PubMed abstarcts used in this project was downloaded from [Pubtator](ftp://ftp.ncbi.nlm.nih.gov/pub/lu/PubTator/).
 
-## Sample results
-The table below shows few examples of our method is able to combine complemnetary information betwene the knowledge graph and the literature information and result in improved predictions ranks for drugs indications and targets
 
-| Drug 	          | Indication  | Knowledge graph | Multimodal I | Multimodal II  |
-| --------------- | ----------- |:---------------:|:------------:|:--------------:|
-|                 |             |                 |              |                |
-|                 |             |                 |              |                |
-|                 |             |                 |              |                |
-|                 |             |                 |              |                |
+We make drug indications predictions for approved drugs from SIDER available `predicted_indications_approved_processed.tsv` in the data folder. The first column is the drug ID and drug name, indications disease ontology ID and name, and the prediction score. 
+
+The full list of the tested drugs and the predicted ranks for indications available in the supplumentary are also included as `indications_ranked_graph.txt`, `indications_ranked_multimodalI.txt` and `indications_ranked_multimodalII.txt`, same for predicted targets.
+For the complete data including the embeddings, download from 
 
 ## Citation 
 
