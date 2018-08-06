@@ -1,4 +1,4 @@
-# multimodal drugs embeddings
+# Drug repurposing through joint learning on knowledge graphs and literature
 
 Here, we developed a novel method that combines
   information in literature and structured databases, and applies
