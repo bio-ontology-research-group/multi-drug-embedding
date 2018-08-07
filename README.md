@@ -64,7 +64,7 @@ The PubMed abstarcts used in this project was downloaded from [Pubtator](ftp://f
 
 We make drug indications predictions for approved drugs from SIDER available `predicted_indications_approved_processed.tsv` in the data folder. The first column is the drug ID and drug name, indications disease ontology ID and name, and the prediction score. 
 
-The full list of the tested drugs and the predicted ranks for indications available in the supplumentary are also included as `indications_ranked_graph.txt`, `indications_ranked_multimodalI.txt` and `indications_ranked_multimodalII.txt`, same for predicted targets.
+The full list of the tested drugs and the predicted ranks for indications and targets are included as `indications_ranked_graph.txt`, `indications_ranked_multimodalI.txt` and `indications_ranked_multimodalII.txt`, etc.
 For the complete data including the embeddings, download from [here](http://bio2vec.net/data/drug-embeddings/)
 
 ## Citation 
