@@ -51,8 +51,8 @@ python normalize_text.py
 ~~~~
 cat ../data/corpus_WalkingRDFOWL_has_indication_free.txt ../data/medline_abstracts_mapped_drugsrepo.txt > ../data/combined_corpus.txt
 ~~~~
-
-9. Run `Ind_ann_graph_common.py` and other scripts to train the Artificaial Neural Networks with different embeddings from the knowledge graph and PubMed abstracts available in the data folder.
+9. Run word2Vec on the combined corpus.
+10. Run `Ind_ann_graph_common.py` and other scripts to train the Artificaial Neural Networks with different embeddings from the knowledge graph and PubMed abstracts available in the data folder.
 
 ## Data
 We make drug indications predictions for approved drugs from SIDER available `predicted_indications_approved_processed.tsv` in the data folder. The first column is the drug ID and drug name, indications disease ontology ID and name, and the prediction score. All generated embeddings and mapping data used to normalize Literature information to knowledge graph used in this project is available as python dictionary in the data folder. All drug indications `drugs2ind_doid.dict` and drug targets `drugs2tars_stitch` evaluations are available as well.
