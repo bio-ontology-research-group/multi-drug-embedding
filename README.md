@@ -9,7 +9,7 @@ Here, we developed a novel method that combines
   combine complementary information from both structured databases and
   from literature.
 
-Below are the steps for the drugs multimodal repurposing pipleine
+Below are the steps for the drugs repurposing pipleine
 
 ## Requirements
 * python 2.7.6
