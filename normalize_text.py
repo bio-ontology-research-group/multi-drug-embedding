@@ -25,7 +25,7 @@ chem = []
 count_gene = 0
 count_chem = 0
 mapped_chem = []
-with open(data_dir+'medline_abstracts_mapped_drugsrepoI.txt','w') as file1:
+with open(data_dir+'medline_abstracts_mapped_drugsrepo.txt','w') as file1:
 	with open('../../Documents/text_graph/bioconcepts2pubtator_offsets') as f:
 		for line in f:
 			line = line.strip()
@@ -57,7 +57,7 @@ with open(data_dir+'medline_abstracts_mapped_drugsrepoI.txt','w') as file1:
 						if mesh in chemical_map:
 							chem_id = chemical_map[mesh]
 							mapped_chem.append(chem_id)
-							terms_dict[toks[3]] = '<http://bio2vec.net/chem/'+chem_id+'>'
+							terms_dict[toks[3]] = '<http://bio2vec.net/'+chem_id+'>'
 					elif toks[4] == 'Gene':
 						terms_dict[toks[3]] = '<http://www.ncbi.nlm.nih.gov/gene/'+toks[5]+'>'
 						genes.append(toks[5])
