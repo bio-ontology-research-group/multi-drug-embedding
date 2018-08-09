@@ -58,6 +58,7 @@ cat ../data/corpus_WalkingRDFOWL_has_indication_free.txt ../data/medline_abstrac
 ## embeddings
 `embeddings_WalkingRDFOWL_has_indication_free.txt` knowledge graph embeddings for predicting drug indications
 `embeddings_WalkingRDFOWL_has_targets_free.txt` knowledge graph embeddings for predicting drugs targets 
+`drugs_text_embeddings.txt`, `diseases_text_embeddings.txt` and `genes_text_embeddings.txt` are Medline abstracts embeddings
 We make drug indications predictions for approved drugs from SIDER available `predicted_indications_approved_processed.tsv` in the data folder. The first column is the drug ID and drug name, indications disease ontology ID and name, and the prediction score. All generated embeddings and mapping data used to normalize Literature information to knowledge graph used in this project is available as python dictionary in the data folder. All drug indications `drugs2ind_doid.dict` and drug targets `drugs2tars_stitch` evaluations are available as well.
 The drug indications is from [SIDER](http://sideeffects.embl.de/) database. The drug target is from [STITCH](http://stitch.embl.de/) database. Chemicals alias from `STITCH` was used to convert drugs mentions in text to `STITCH` ID available in `chemical_map.dict`.
 
