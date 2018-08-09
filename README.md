@@ -65,7 +65,7 @@ The knowledge graph edgelist is `edgelist_WalkingRDFOWL.txt` and the mapping to 
 `drugs_text_embeddings.txt`, `diseases_text_embeddings.txt` and `genes_text_embeddings.txt` are Medline abstracts embeddings.
 `drugs_embeddings_combined_has_indication.txt`, `diseases_embeddings_combined_has_indication.txt` and `genes_embeddings_combined_has_indication.txt` are knowledge graph and Medline abstracts jointly trained.
 ## Evaluations and Mapping
-  All generated embeddings and mapping data used to normalize Literature information to knowledge graph used in this project is available as python dictionary in the data folder. All drug indications `drugs2ind_doid.dict` and drug targets `drugs2tars_stitch` evaluations are available as well.
+  All generated embeddings and mapping data used to normalize Literature information to knowledge graph used in this project is available as python dictionary in the data folder. All drug indications `drugs2ind_doid.dict` and drug targets `drugs2tars_stitch.dict` evaluations are available as well.
 The drug indications is from [SIDER](http://sideeffects.embl.de/) database. The drug target is from [STITCH](http://stitch.embl.de/) database. Chemicals alias from `STITCH` was used to convert drugs mentions in text to `STITCH` ID available in `chemical_map.dict`.
 
 [Disease ontology](http://www.obofoundry.org/ontology/doid.html) was used to extract `MESH` to `DOID` mapping in `mesh2doid.dict` and `OMIM` to `DOID` in `omim2doid.dict`
