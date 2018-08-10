@@ -59,7 +59,7 @@ cat ../data/corpus_WalkingRDFOWL_has_indication_free.txt ../data/medline_abstrac
 The PubMed abstarcts used in this project was downloaded from [Pubtator] (ftp://ftp.ncbi.nlm.nih.gov/pub/lu/PubTator/), The normalization script can be used to normalize the knowledge graph and literature. The normalized corpus used in this study is available upon request. 
 The knowledge graph edgelist is `edgelist_WalkingRDFOWL.txt` and the mapping to knowledge graph node is `mapping_WalkingRDFOWL.txt`
 
-## Embedding
+## Embeddings
 `embeddings_WalkingRDFOWL_has_indication_free.txt` knowledge graph embeddings for predicting drug indications
 `embeddings_WalkingRDFOWL_has_targets_free.txt` knowledge graph embeddings for predicting drugs targets 
 `drugs_text_embeddings.txt`, `diseases_text_embeddings.txt` and `genes_text_embeddings.txt` are Medline abstracts embeddings.
