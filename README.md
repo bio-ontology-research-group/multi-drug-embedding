@@ -77,6 +77,18 @@ The first is the drug PubChem ID followed by the diseases and their ranks.
 
 For the complete data including the embeddings, download from [here](http://bio2vec.net/data/drug-embeddings/)
 
+## Sample results
+ The tables below illustrates few examples of the method's ablility to combine complemnetary information betwene the knowledge graph and the literature which result in improved predictions ranks for drugs indications and targets
+
+ | Drug 	   | Indication  | Knowledge graph | Multimodal I | Multimodal II  |
+ | --------------- | ----------- |:---------------:|:------------:|:--------------:|
+ | CID00002678 (Cetirizine) |  allergic hypersensitivity disease (DOID:1205) | ranked 34 | ranked 1 | ranked 10 |
+ |                 |             |                 |              |                |
+ |                 |             |                 |              |                |
+ |                 |             |                 |              |                |
+
+
+
 ## Citation 
 
 
