@@ -89,6 +89,14 @@ For the complete data including the embeddings, download from [here](http://bio2
  | CID00004091 (Metformin) | diabetes mellitus (DOID:9351) | ranked 3 | ranked 1 | ranked 3 | 
  | CID00003310 (Etoposide) |  leukemia (DOID:1240) | ranked 177 | ranked 11 | ranked 1 | 
 
+ | Drug 	   | Target (gene Entrez)  | KG rank | Concatenated embeddings | Concatenated corpora  |
+ | --------------- | ----------- |:---------------:|:------------:|:--------------:|
+ | CID00004048 (Megestrol acetate) | 2908 | ranked 13  | ranked 6  | ranked 4      |
+ |                 |             |                 |              |                |
+ |                 |             |                 |              |                |
+ |                 |             |                 |              |                |
+|
+
 
 ## Citation 
 
