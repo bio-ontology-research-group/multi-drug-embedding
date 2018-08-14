@@ -92,10 +92,11 @@ For the complete data including the embeddings, download from [here](http://bio2
  | Drug 	   | Target (gene Entrez)  | KG rank | Concatenated embeddings | Concatenated corpora  |
  | --------------- | ----------- |:---------------:|:------------:|:--------------:|
  | CID00004048 (Megestrol acetate) | 2908 | ranked 13  | ranked 6  | ranked 4      |
- |                 |             |                 |              |                |
- |                 |             |                 |              |                |
- |                 |             |                 |              |                |
-|
+ | CID00004934 (Propantheline)     | 1131 | ranked 91  | ranked 1  |  ranked 1     |
+ | CID00003155 (Dothiepin) | 1129 | ranked 62 | ranked 19 | ranked 1|
+ | CID00004666 (Paclitaxel) | 7157 |  ranked 5 | ranked 5  | ranked 2  |
+ | CID00003640 (Cortisol)   | 1551 | ranked 13 | ranked 3  | ranked 10  |  
+ | CID00004594 (Omeprazole) | 1544 | ranked 53 | ranked 7 | ranked 2 | 
 
 
 ## Citation 
