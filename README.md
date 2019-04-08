@@ -72,10 +72,10 @@ The drug indications is from [SIDER](http://sideeffects.embl.de/) database. The 
 
 ## Predictions
 We make drug indications predictions for approved drugs from SIDER available `predicted_indications_approved_processed.tsv` in the data folder.
-The first column is the drug ID and drug name, indications disease ontology ID and name, and the prediction score. The full list of the tested drugs and the predicted ranks for indications and targets are included as `indications_ranked_graph.txt`, `indications_ranked_multimodalI.txt` and `indications_ranked_multimodalII.txt`, etc.
+The first column is the drug ID and drug name, indications disease ontology ID and name, and the prediction score. The full list of the tested drugs and the predicted ranks for indications and targets are included as `indications_ranked_graph.txt`, `indications_ranked_concat_embeddings.txt` and `indications_ranked_concat_corpus.txt`, etc.
 The first is the drug PubChem ID followed by the diseases and their ranks.
 
-For the complete data including the embeddings, download from [here](http://bio2vec.net/data/drug-embeddings/)
+For the complete data including the mapping files, embeddings and normalized PubMed corpus, please download from [here](http://bio2vec.net/data/drug-embeddings/)
 
 ## Sample results
  The tables below illustrates few examples of the method's ablility to combine complemnetary information betwene the knowledge graph and the literature which result in improved predictions ranks for drugs indications and targets
@@ -89,7 +89,7 @@ For the complete data including the embeddings, download from [here](http://bio2
  | CID00004091 (Metformin) | diabetes mellitus (DOID:9351) | ranked 3 | ranked 1 | ranked 3 | 
  | CID00003310 (Etoposide) |  leukemia (DOID:1240) | ranked 177 | ranked 11 | ranked 1 | 
 
- | Drug 	   | Target (gene Entrez)  | KG rank | Concatenated embeddings | Concatenated corpora  |
+ | Drug 	   | Target (gene Entrez)  | Knowledge graph | Concatenated embeddings | Concatenated corpora  |
  | --------------- | ----------- |:---------------:|:------------:|:--------------:|
  | CID00004048 (Megestrol acetate) | 2908 | ranked 13  | ranked 6  | ranked 4      |
  | CID00004934 (Propantheline)     | 1131 | ranked 91  | ranked 1  |  ranked 1     |
