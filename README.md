@@ -82,7 +82,7 @@ For the complete data including the mapping files, embeddings and normalized Pub
 
  | Drug 	   | Indication  | Knowledge graph | Pubmed abstracts |Concatenated embeddings | Concatenated corpora  |
  | --------------- | ----------- |:---------------:|:---------------:|:------------:|:--------------:|
- | CID00002678 (Cetirizine) |  allergic hypersensitivity disease (DOID:1205) | ranked 34 | **ranked 1** | ranked 10 |
+ | CID00002678 (Cetirizine) |  allergic hypersensitivity disease (DOID:1205) | ranked 34 | ranked 4|**ranked 1** | ranked 10 |
  | CID05464096	(Ramiprilat) | cerebrovascular disease (DOID:6713) | ranked 76 | **ranked 1 **|**ranked 1**  | ranked 3 |
  | CID00002786 (Clindamycin) |impetigo (DOID:8504) | ranked 16 | ranked 11 | **ranked 1** | **ranked 1** |
  | CID00002658 (Cefuroxime)  | pneumonia (DOID:552) | ranked 46 | ranked 3 | ranked 1 |
@@ -91,8 +91,8 @@ For the complete data including the mapping files, embeddings and normalized Pub
 
  | Drug 	   | Target (gene Entrez)  | Knowledge graph | Pubmed abstracts | Concatenated embeddings | Concatenated corpora  |
  | --------------- | ----------- |:---------------:|:---------------:|:------------:|:--------------:|
- | CID00004048 (Megestrol acetate) | 2908 | ranked 13 | ranked 6 | ranked 10  | ranked 6  | **ranked 4**|
- | CID00004934 (Propantheline)     | 1131 | ranked 91 | ranked 13  | **ranked 1**  |  **ranked 1**     |
+ | CID00004048 (Megestrol acetate) | 2908 | ranked 13 | ranked 10  | ranked 6  | **ranked 4**|
+ | CID00004934 (Propantheline)     | 1131 | ranked 91 | ranked 13  | **ranked 1**  |  **ranked 1**|
  | CID00003155 (Dothiepin) | 1129 | ranked 62 | ranked 26 | ranked 19 | **ranked 1**|
  | CID00004666 (Paclitaxel) | 7157 |  ranked 5 | ranked 3| ranked 5  | **ranked 2**|
  | CID00003640 (Cortisol)   | 1551 | ranked 13 | ranked 20 | **ranked 3** | ranked 10  |  
