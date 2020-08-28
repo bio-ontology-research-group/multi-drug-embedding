@@ -80,23 +80,23 @@ For the complete data including the mapping files, embeddings and normalized Pub
 ## Sample results
  The tables below illustrates few examples of the method's ablility to combine complemnetary information betwene the knowledge graph and the literature which result in improved predictions ranks for drugs indications and targets
 
- | Drug 	   | Indication  | Knowledge graph | Concatenated embeddings | Concatenated corpora  |
- | --------------- | ----------- |:---------------:|:------------:|:--------------:|
- | CID00002678 (Cetirizine) |  allergic hypersensitivity disease (DOID:1205) | ranked 34 | ranked 1 | ranked 10 |
- | CID05464096	(Ramiprilat) | cerebrovascular disease (DOID:6713) | ranked 76 | ranked 1  | ranked 3 |
- | CID00002786 (Clindamycin) |impetigo (DOID:8504) | ranked 16 | ranked 1 | ranked 1 |
+ | Drug 	   | Indication  | Knowledge graph | Pubmed abstracts |Concatenated embeddings | Concatenated corpora  |
+ | --------------- | ----------- |:---------------:|:---------------:|:------------:|:--------------:|
+ | CID00002678 (Cetirizine) |  allergic hypersensitivity disease (DOID:1205) | ranked 34 | **ranked 1** | ranked 10 |
+ | CID05464096	(Ramiprilat) | cerebrovascular disease (DOID:6713) | ranked 76 | **ranked 1 **|**ranked 1**  | ranked 3 |
+ | CID00002786 (Clindamycin) |impetigo (DOID:8504) | ranked 16 | ranked 11 | **ranked 1** | **ranked 1** |
  | CID00002658 (Cefuroxime)  | pneumonia (DOID:552) | ranked 46 | ranked 3 | ranked 1 |
- | CID00004091 (Metformin) | diabetes mellitus (DOID:9351) | ranked 3 | ranked 1 | ranked 3 | 
- | CID00003310 (Etoposide) |  leukemia (DOID:1240) | ranked 177 | ranked 11 | ranked 1 | 
+ | CID00004091 (Metformin) | diabetes mellitus (DOID:9351) | ranked 3 | ranked 6 | **ranked 1** | ranked 3 | 
+ | CID00003310 (Etoposide) |  leukemia (DOID:1240) | ranked 177 | ranked 3| ranked 11 | **ranked 1** | 
 
- | Drug 	   | Target (gene Entrez)  | Knowledge graph | Concatenated embeddings | Concatenated corpora  |
- | --------------- | ----------- |:---------------:|:------------:|:--------------:|
- | CID00004048 (Megestrol acetate) | 2908 | ranked 13  | ranked 6  | ranked 4      |
- | CID00004934 (Propantheline)     | 1131 | ranked 91  | ranked 1  |  ranked 1     |
- | CID00003155 (Dothiepin) | 1129 | ranked 62 | ranked 19 | ranked 1|
- | CID00004666 (Paclitaxel) | 7157 |  ranked 5 | ranked 5  | ranked 2  |
- | CID00003640 (Cortisol)   | 1551 | ranked 13 | ranked 3  | ranked 10  |  
- | CID00004594 (Omeprazole) | 1544 | ranked 53 | ranked 7 | ranked 2 | 
+ | Drug 	   | Target (gene Entrez)  | Knowledge graph | Pubmed abstracts | Concatenated embeddings | Concatenated corpora  |
+ | --------------- | ----------- |:---------------:|:---------------:|:------------:|:--------------:|
+ | CID00004048 (Megestrol acetate) | 2908 | ranked 13 | ranked 6 | ranked 10  | ranked 6  | **ranked 4**|
+ | CID00004934 (Propantheline)     | 1131 | ranked 91 | ranked 13  | **ranked 1**  |  **ranked 1**     |
+ | CID00003155 (Dothiepin) | 1129 | ranked 62 | ranked 26 | ranked 19 | **ranked 1**|
+ | CID00004666 (Paclitaxel) | 7157 |  ranked 5 | ranked 3| ranked 5  | **ranked 2**|
+ | CID00003640 (Cortisol)   | 1551 | ranked 13 | ranked 20 | **ranked 3** | ranked 10  |  
+ | CID00004594 (Omeprazole) | 1544 | ranked 53 | ranked 18 |ranked 7 | **ranked 2** | 
 
 
 ## Citation 
