@@ -83,9 +83,9 @@ For the complete data including the mapping files, embeddings and normalized Pub
  | Drug 	   | Indication  | Knowledge graph | Pubmed abstracts |Concatenated embeddings | Concatenated corpora  |
  | --------------- | ----------- |:---------------:|:---------------:|:------------:|:--------------:|
  | CID00002678 (Cetirizine) |  allergic hypersensitivity disease (DOID:1205) | ranked 34 | ranked 4|**ranked 1** | ranked 10 |
- | CID05464096	(Ramiprilat) | cerebrovascular disease (DOID:6713) | ranked 76 | **ranked 1 **|**ranked 1**  | ranked 3 |
+ | CID05464096	(Ramiprilat) | cerebrovascular disease (DOID:6713) | ranked 76 | **ranked 1**|**ranked 1**  | ranked 3 |
  | CID00002786 (Clindamycin) |impetigo (DOID:8504) | ranked 16 | ranked 11 | **ranked 1** | **ranked 1** |
- | CID00002658 (Cefuroxime)  | pneumonia (DOID:552) | ranked 46 | ranked 3 | ranked 1 |
+ | CID00002658 (Cefuroxime)  | pneumonia (DOID:552) | ranked 46 | ranked 7 |ranked 3 | **ranked 1** |
  | CID00004091 (Metformin) | diabetes mellitus (DOID:9351) | ranked 3 | ranked 6 | **ranked 1** | ranked 3 | 
  | CID00003310 (Etoposide) |  leukemia (DOID:1240) | ranked 177 | ranked 3| ranked 11 | **ranked 1** | 
 
